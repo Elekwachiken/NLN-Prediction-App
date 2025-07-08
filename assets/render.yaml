@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: lottery-churn-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:server
+    envVars:
+      - key: USE_DISKCACHE
+        value: "1"

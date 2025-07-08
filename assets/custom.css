@@ -1,0 +1,1219 @@
+/* --- Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
+/* #main-container
+  └── body-wrapper (controls sidebar vs. main-body arrangement)
+      ├── sidebar
+      └── main-body (controls navbar vs. content arrangement)
+          ├── navbar
+          └── content (where individual page layouts are displayed) */
+
+
+/* --- CSS Variables for Theming Dash Components --- */
+:root {
+    /* Light Mode Defaults */
+    --dash-header-bg-light: #166534;
+    --dash-header-text-light: white;
+    --dash-cell-bg-light: #ffffff;
+    --dash-cell-odd-bg-light: #f9f9f9;
+    --dash-cell-text-light: #333;
+    --dash-cell-border-light: #e0e0e0;
+    --accent-color: #28a745; /* Green accent */
+    --button-bg: #dc3545; /* Red logout button */
+    --button-text: white;
+}
+
+body.dark-mode {
+    /* Dark Mode Overrides */
+    --dash-header-bg-dark: #14532d;
+    --dash-header-text-dark: #f1f1f1;
+    --dash-cell-bg-dark: #2a2a3e;
+    --dash-cell-odd-bg-dark: #33334a; /* Slightly different for odd rows in dark mode */
+    --dash-cell-text-dark: #f1f1f1;
+    --dash-cell-border-dark: #555;
+    --accent-color: #007bff; /* Blue accent in dark theme */
+    --button-bg: #dc3545; /* Red logout button (can be same) */
+    --button-text: white;
+}
+
+
+
+
+/* --- GENERAL STYLES --- */
+body {
+    font-family: 'Nunito', 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    background-color: #f5f7fa; /* Light mode default background */
+    color: #333; /* Light mode default text color */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
+}
+
+
+/* Dark Mode Overrides for Body */
+body.dark-mode {
+    background-color: #0a1f14;  /* Green-themed dark mode */
+    color: #e2ffe9;             /* Crisp readable text */
+}
+
+/* Main App Container Structure */
+.main-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.body-wrapper { /* Contains Sidebar and Main Content Area */
+    display: flex;
+    flex-direction: row; /* Sidebar | Main Content */
+    flex: 1;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevent body scroll, content areas will scroll */
+    transition: all 0.3s ease;
+}
+
+/* Adjust main-body when sidebar is collapsed */
+.sidebar-expanded .main-body {
+    margin-left: 250px; /* Default margin for expanded sidebar */
+    width: calc(100% - 250px); /* Default width for expanded sidebar */
+}
+
+.sidebar-collapsed .main-body {
+    margin-left: 60px; /* Adjust offset when sidebar collapses */
+    width: calc(100% - 60px);
+}
+
+
+/* --- LOGIN PAGE STYLES --- */
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f3320 0%, #14532d 100%); /* Always dark gradient */
+}
+
+body.dark-mode .login-wrapper {
+    background: linear-gradient(135deg, #0a1f14 0%, #14532d 100%); /* Dark gradient for dark mode */
+}
+
+.login-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    color: white;
+}
+
+.login-title {
+    font-size: 2.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Wrapper for title block */
+.login-title-block {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Main organization title */
+.login-main-title {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+/* Subtitle */
+.login-subtitle {
+    font-size: 20px;
+    color: #b0ffc2;  /* Soft green accent */
+    font-weight: 400;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+
+.login-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    margin-top: 20px;
+}
+
+.login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-form-box {
+    background-color: #ffffff; /* White for light mode */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .login-form-box {
+    background-color: #3c3c54; /* Darker background for form in dark mode */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-form-box h2 {
+    color: #198754; /* soft green for light mode */
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+body.dark-mode .login-form-box h2 {
+    color: #86efac; /* Soft green glow */
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e0; /* Light border */
+    background-color: #f5f7fa; /* Light background */
+    color: #333; /* Dark text */
+    margin-bottom: 15px;
+}
+
+body.dark-mode .login-input {
+    border: 1px solid #555;
+    background-color: #2a2a3e;
+    color: #f1f1f1;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+}
+
+.login-btn {
+    background-color: #198754;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:hover {
+    background-color: #14532d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.login-message {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #333; /* Dark text for messages */
+}
+
+body.dark-mode .login-message {
+    color: #f1f1f1; /* Light text for messages */
+}
+
+.error-message {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
+body.dark-mode .error-message {
+    background-color: #4a2a2e;
+    border-color: #6a3c40;
+    color: #ff9999;
+}
+
+
+/* --- SIDEBAR STYLES --- */
+#sidebar {
+    width: 250px;
+    min-width: 250px; /* Fixed width for expanded state */
+    background: linear-gradient(120deg, #0f3320, #14532d); /* Dark gradient */
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    box-sizing: border-box;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+#sidebar.collapsed {
+    width: 60px;
+    min-width: 60px;
+    padding: 20px 0px;
+    align-items: center;
+}
+
+/* Dark Mode Sidebar (no change, it's already dark) */
+body.dark-mode #sidebar {
+    background: linear-gradient(120deg, #0a1f14, #0f3320); /* Slightly darker gradient for dark theme */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+}
+
+#sidebar .sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    color: #fff; /* Ensure title is white in sidebar */
+}
+
+#sidebar.collapsed .sidebar-title .label,
+#sidebar.collapsed .sidebar-footer {
+    display: none;
+}
+
+#sidebar .sidebar-title .icon {
+    margin-right: 8px;
+}
+
+#sidebar hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 20px 0;
+}
+
+/* Sidebar Menu Grouping */
+.sidebar-menu-group {
+    margin-bottom: 10px; /* Space between main menu headers */
+}
+
+/* Sidebar logo */
+.sidebar-logo {
+    height: 48px;
+    width: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Login logo */
+.login-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes fadeInSpin {
+    0% {
+        opacity: 0;
+        transform: rotate(-20deg) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+.sidebar-logo,
+.login-logo {
+    animation: fadeInSpin 3s ease-out; /* for animation effect*/
+    /* border-radius: 70%;
+    border: 1px solid #ffffff20;  Optional soft border */
+}
+
+
+/* Menu Headers (Home, Upload, About) - act as toggle buttons */
+.menu-header {
+    background: none;
+    border: none;
+    color: white;
+    width: 100%;
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 5px;
+    white-space: nowrap;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.menu-header:hover {
+    background-color: rgba(20, 83, 45, 0.7); /* #14532d */ /* Dark green hover */
+}
+
+#sidebar.collapsed .menu-header {
+    justify-content: center;
+    padding: 12px 0; /* Adjust padding for collapsed state */
+}
+
+#sidebar.collapsed .menu-header .label {
+    display: none;
+}
+
+.menu-header .icon {
+    margin-right: 12px;
+    font-size: 1.2em;
+}
+
+/* Submenu Sections (Home-submenu, upload-submenu, about-submenu) */
+.menu-section {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsed-submenu {
+    max-height: 0;
+}
+
+.expanded-submenu {
+    max-height: 500px; /* Large enough to contain all submenu items */
+}
+
+/* NavLinks within submenus */
+.submenu-item {
+    color: #ccc; /* Lighter grey for submenu items */
+    padding: 8px 20px 8px 52px !important; /* Adjusted padding-left for nesting */
+    transition: color 0.2s ease, background-color 0.2s ease;
+    font-size: 0.9em;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+
+#sidebar.collapsed .submenu-item {
+    justify-content: center; /* Center icon when collapsed */
+    padding: 8px 0px 8px 0px !important; /* Adjust padding for collapsed state to center icons */
+    width: 60px; /* Force width to match sidebar */
+}
+
+#sidebar.collapsed .submenu-item .label {
+    display: none;
+}
+
+#sidebar.collapsed .submenu-item .icon {
+    margin-right: 0; /* Ensure no margin pushing icon off-center */
+}
+
+
+.submenu-item .icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.submenu-item:hover {
+    color: white;
+    background-color: rgba(21, 87, 36, 0.5); /* Slightly lighter green hover */
+}
+
+.submenu-item.active {
+    color: white !important;
+    background-color: #198754 !important; /* Primary green for active link */
+    font-weight: bold;
+}
+
+/* Theme Toggle Section in Sidebar */
+.theme-section {
+    margin-top: auto; /* Pushes to bottom */
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separator line */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    text-align: center;
+}
+
+
+#sidebar.collapsed .theme-section {
+    padding: 10px 0; /* Adjust padding for collapsed state */
+}
+
+#sidebar.collapsed .theme-label-row .label {
+    display: none; /* Hide 'Theme' label */
+}
+
+#sidebar.collapsed .theme-label-row .icon {
+    margin-right: 0; /* Center theme icon */
+}
+
+/* Add this to your custom.css */
+#sidebar.collapsed .theme-toggle-switch .form-check-label {
+    display: none; /* Hide the "Dark Mode" text label */
+}
+
+/* Ensure the switch itself is centered if possible, though it's already in a flex column */
+#sidebar.collapsed .theme-toggle-col {
+    justify-content: center; /* Center horizontally within its column */
+}
+
+
+.theme-toggle-col {
+    display: flex;
+    flex-direction: column; /* Stack icon/label above switch */
+    align-items: center;
+    width: 100%;
+}
+
+.theme-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #f1f1f1; /* White for labels in dark sidebar */
+}
+
+.theme-label-row .icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* dbc.Switch specific styling */
+.theme-toggle-switch {
+    margin-top: 5px; /* Space between label and switch */
+    /* Further styling for the switch handle/track can be done here if needed */
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #aaa;
+    padding: 15px 0;
+}
+
+
+/* --- NAVBAR STYLES --- */
+.navbar {
+    height: 70px;
+    background-color: var(--navbar-bg); /* Use a CSS variable for theme switching */
+    color: var(--navbar-text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #e2e8f0; /* Light border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Left section (toggle button) */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+body.dark-mode .navbar {
+    background-color: #1f2d24; /* Dark mode background */
+    border-bottom: 1px solid #2e4634;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333; /* Light mode color */
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+body.dark-mode .menu-toggle {
+    color: #f1f1f1; /* Dark mode color */
+}
+
+/* Logo + Title */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Optional: Slight fade effect or scale on logo */
+.logo:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Title */
+.logo-title h4 {
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+}
+
+
+body.dark-mode .logo-title h4 {
+    color: #f1f1f1;
+}
+
+/* User Panel (dbc.DropdownMenu wrapper)
+.user-panel {
+    /* No specific styles needed here, dbc.DropdownMenu handles its own structure */
+/* } */ 
+
+
+/* USER PANEL or dropdown (right-aligned) */
+/* Adjust to ensure content aligns nicely */
+.user-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between avatar and dropdown label content */
+}
+
+/* Existing .user-panel, .user-details, .user-name, .user-login-time, .logout-btn styling */
+
+.user-avatar-navbar {
+    width: 40px; /* Adjust size as needed for navbar */
+    height: 40px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Ensure image fills the circle */
+    margin-right: 8px; /* Space between image and text */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Optional subtle border */
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-name {
+    margin: 0; /* Remove default paragraph margin */
+    font-weight: bold;
+    color: var(--navbar-text);
+}
+
+.user-login-time {
+    font-size: 0.75em;
+    color: var(--navbar-text-muted); /* Lighter text for time */
+    margin-top: -3px; /* Pull it slightly closer to name */
+}
+
+/* Ensure dropdown label content is also aligned */
+.user-dropdown-menu .dropdown-toggle {
+    display: flex !important; /* Override Bootstrap's default if needed */
+    align-items: center !important;
+    color: #333 !important; /* Ensure it's dark in light mode */
+    font-weight: 500;
+    cursor: pointer;
+    padding-right: 1.5rem; /* Space for the caret */
+    background: none !important; /* Ensure no background on toggle */
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+body.dark-mode .user-dropdown-menu .dropdown-toggle {
+    color: #f1f1f1 !important; /* Ensure it's light in dark mode */
+}
+
+.status-indicator {
+    font-size: 1.5em; /* Larger circle */
+    line-height: 1; /* Center vertically */
+    transition: color 0.3s ease;
+    vertical-align: middle;
+}
+
+.user-dropdown-label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Style for actual dropdown menu */
+.user-dropdown-menu .dropdown-menu {
+    background-color: white; /* Light mode background */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    min-width: 180px; /* Adjust dropdown width */
+    margin-top: 5px;
+}
+
+body.dark-mode .user-dropdown-menu .dropdown-menu {
+    background-color: #3b3b5c; /* Dark mode background */
+    border: 1px solid #555;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Styles for dropdown menu items */
+.user-dropdown-item {
+    padding: 10px 15px;
+    color: #333; /* Dark text */
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.dark-mode .user-dropdown-item {
+    color: #f1f1f1; /* Light text */
+}
+
+.user-dropdown-item:hover {
+    background-color: #f0f0f0;
+    color: #28a745; /* Primary green on hover */
+}
+
+body.dark-mode .user-dropdown-item:hover {
+    background-color: #55557a;
+    color: #f1f1f1;
+}
+
+.logout-link {
+    color: #dc3545 !important; /* Red for logout */
+    font-weight: bold;
+}
+.logout-link:hover {
+    background-color: #f8d7da !important;
+}
+body.dark-mode .logout-link:hover {
+    background-color: #7a3b3b !important; /* Darker red hover for dark mode */
+}
+
+.logout-btn {
+    background-color: var(--button-bg); /* Example button color */
+    color: var(--button-text);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+/* Guest user panel styling (when not logged in) */
+.guest-user-panel {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-weight: 500;
+}
+
+body.dark-mode .guest-user-panel {
+    color: #f1f1f1;
+}
+
+
+/* --- MAIN CONTENT AREA & COMPONENTS STYLES --- */
+.main-body {
+    flex: 1; /* Main body takes remaining space */
+    display: flex; 
+    flex-direction: column; /* Stacks navbar on top, content below: navbar \n content */
+    transition: margin-left 0.3s ease, width 0.3s ease; /*Animate margin and width*/
+    height: 100vh;
+    overflow: hidden; 
+    box-sizing: border-box; /* Include padding/border in width calculation */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling for content if it overflows */
+    background-color: #f5f7fa; /* Light background for content area */
+    box-sizing: border-box;
+}
+
+
+body.dark-mode .content {
+    background-color: #0f1e17; /* Dark background for content area */
+}
+
+.page-content-wrapper {
+    background-color: #ffffff; /* White background for individual page sections */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Added for horizontal scrolling of content within pages */
+}
+
+body.dark-mode .page-content-wrapper {
+    background-color: #1f2d24;
+    color: #e2ffe9;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.page-title {
+    color: #166534; /* Primary green for titles */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+body.dark-mode .page-title {
+    color: #22c55e; /* soft green for dark mode titles */
+}
+
+.separator { /* Horizontal Rule/Divider */
+  border-top: 1px solid #e0e0e0;
+  margin: 30px 0;
+}
+
+body.dark-mode .separator {
+  border-top: 1px solid #555;
+}
+
+/* Upload Box */
+.upload-box {
+    width: 70%;
+    padding: 40px 20px; /* Increased padding slightly for visual appeal */
+    border: 2px dashed #28a745; /* Primary blue dashed border */
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px auto;
+    background-color: rgba(40, 167, 69, 0.05);
+    color: #166534;
+    font-weight: bold;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+body.dark-mode .upload-box {
+    border-color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.05);
+    color: #22c55e;
+}
+
+.upload-box:hover {
+    border-color: #1c7c37;
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #1c7c37;
+}
+
+body.dark-mode .upload-box:hover {
+    border-color: #16a34a;
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.upload-box a {
+    color: #166534;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+body.dark-mode .upload-box a {
+    color: #22c55e;
+}
+
+.upload-box a:hover {
+    color: #14532d;
+}
+
+body.dark-mode .upload-box a:hover {
+    color: #16a34a;
+}
+
+
+/* Download Button and Template Button */
+.download-btn, .template-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #198754; /* Blueish-grey */
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:hover, .template-btn:hover {
+    background-color: #14532d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* GLOBAL PREDICTION OUTPUT CONTAINER */
+#global-prediction-output-container {
+    margin-top: 20px;
+    padding: 25px;
+    background-color: #ffffff; /* Light mode white */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+body.dark-mode #global-prediction-output-container {
+    background-color: #2c2c4a;
+    color: #f1f1f1;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+
+/* --- DASH TABLE STYLES --- */
+.dash-spreadsheet {
+    border: 1px solid var(--dash-cell-border-light); /* Light border */
+    border-radius: 8px;
+    overflow: auto; /* Allow both horizontal and vertical scrolling if content overflows */
+    /* OR for horizontal specifically: overflow-x: auto; */
+}
+
+body.dark-mode .dash-spreadsheet {
+    border: 1px solid var(--dash-cell-border-dark); /* Dark border */
+}
+
+/* Specific styling for the churn prediction column */
+.dash-cell-value[data-column-id="Predicted_Churn"] {
+    font-weight: bold;
+}
+
+
+/*=================================*/
+.dash-header {
+    background-color: #166534 !important; /* Green header */
+    color: white !important;
+    font-weight: bold;
+}
+
+body.dark-mode .dash-header {
+    background-color: #14532d !important; /* Darker header */
+}
+
+.dash-cell {
+    background-color: #ffffff !important; /* White cell background */
+    color: #333 !important; /* Dark text */
+    border: 1px solid #ddd !important; /* Light cell border */
+}
+
+body.dark-mode .dash-cell {
+    background-color: #2a2a3e !important; /* Dark cell background */
+    color: #f1f1f1 !important; /* Light text */
+    border: 1px solid #555 !important; /* Dark cell border */
+}
+/*==============================================*/
+
+
+/* --- DASH TABS STYLES FOR VISUALS --- */
+.custom-tab-container .dash-tabs {
+    border: none !important;
+}
+
+.custom-tab {
+    background-color: #f0f0f0 !important; /* Light grey */
+    color: #555 !important;
+    border-radius: 8px 8px 0 0 !important;
+    padding: 12px 20px !important;
+    font-weight: 600 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-bottom: none !important;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .custom-tab {
+    background-color: #333 !important;
+    color: #bbb !important;
+    border-color: #555 !important;
+}
+
+.custom-tab--selected {
+    background-color: #28a745 !important;
+    color: white !important;
+    border-color: #28a745 !important;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .custom-tab--selected {
+    background-color: #166534 !important; /* Darker green for selected tab in dark mode */
+    border-color: #166534 !important;
+}
+
+/* Adjust the content below the tabs (where the Plotly graphs reside) */
+.dash-tabs + div {
+    background-color: #ffffff; /* White background */
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* NEW: Make this area scrollable and give it a max-height */
+    max-height: calc(100vh - 60px - 100px - 80px); /* Example: 100vh - navbar_height - approximate_tab_header_height - some_margin/padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+body.dark-mode .dash-tabs + div {
+    background-color: #2c2c4a;
+    border-color: #1f402e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure Plotly chart elements are legible in dark mode */
+.dark-mode .modebar-btn {
+    color: #22c55e !important; /* Dark mode buttons in plotly graphs */
+}
+.dark-mode .js-plotly-plot .plotly .xaxislayer-above .xtick .lines,
+.dark-mode .js-plotly-plot .plotly .yaxislayer-above .ytick .lines {
+    stroke: #22c55e !important; /* Ensure tick lines are visible */
+}
+
+
+/* Style for the progress bar label */
+.progress-bar .progress-bar-text {
+    color: black; /* Default text color for light mode */
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+body.dark-mode .progress-bar .progress-bar-text {
+    color: white; /* White text for dark mode */
+}
+
+
+/* UTILITY CLASSES */
+.text-center {
+    text-align: center;
+}
+.p-4 {
+    padding: 1rem; /* 16px */
+}
+.mt-4 {
+    margin-top: 1rem;
+}
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+
+
+
+/* --- MOBILE RESPONSIVENESS (max-width: 768px) --- */
+@media (max-width: 768px) {
+    /* General Layout Adjustments */
+    .body-wrapper {
+        flex-direction: column; /* Stack sidebar on top if needed, or hide */
+    }
+
+    /* Sidebar - Initially hidden on smaller screens */
+    #sidebar {
+        width: 100%; /* Full width when active */
+        height: 100%;
+        position: fixed; /* Keep fixed */
+        top: 0;
+        left: 0;
+        transform: translateX(-100%); /* Start off-screen to the left */
+        padding: 20px 0;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3); /* Add shadow when open */
+        z-index: 100; /* Ensure it's above everything else when open */
+        display: flex; /* Ensure flex properties apply */
+        flex-direction: column;
+    }
+
+    #sidebar.expanded {
+        transform: translateX(0); /* Slide in when expanded */
+    }
+
+    /* Main Body - Always full width, no margin-left from sidebar */
+    .main-body {
+        margin-left: 0 !important; /* Override desktop margin */
+        width: 100% !important; /* Always full width */
+        height: 100vh;
+        overflow-y: auto; /* Allow scrolling for content */
+    }
+
+    /* Navbar - Ensure toggle button is prominent */
+    .navbar {
+        padding: 10px 15px; /* Adjust padding */
+    }
+
+    .menu-toggle {
+        display: block; /* Ensure hamburger is visible */
+    }
+
+    .logo-title h4 {
+        font-size: 1.1em; /* Smaller title */
+    }
+
+    /* Hide sidebar labels and icons when collapsed (relevant for smaller screens if sidebar isn't fully off-screen) */
+    #sidebar.collapsed .label,
+    #sidebar.collapsed .sidebar-footer,
+    #sidebar.collapsed .menu-header .label,
+    #sidebar.collapsed .submenu-item .label {
+        display: none;
+    }
+    #sidebar.collapsed .menu-header .icon,
+    #sidebar.collapsed .submenu-item .icon {
+        margin-right: 0;
+    }
+    #sidebar.collapsed .sidebar-title .label {
+        display: none; /* Hide app title label when sidebar collapses fully on desktop */
+    }
+
+    /* Login Page Adjustments */
+    .login-wrapper {
+        flex-direction: column; /* Stack login sections vertically */
+        padding: 20px;
+        height: auto; /* Allow height to adjust */
+        min-height: 100vh;
+    }
+
+    .login-left, .login-right {
+        flex: none; /* Don't grow, use content size */
+        width: 100%;
+        padding: 20px;
+    }
+
+    .login-image {
+        max-width: 90%; /* Adjust image size */
+    }
+
+    .login-form-box {
+        width: 95%; /* Adjust form width */
+        max-width: none; /* Remove max-width constraint */
+        margin-top: 20px;
+    }
+
+    .login-input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    /* Page Content Wrapper */
+    .page-content-wrapper {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    /* Upload Box */
+    .upload-box {
+        width: 95%; /* Make upload box wider on mobile */
+        margin: 15px auto;
+        padding: 30px 15px;
+        font-size: 1em;
+    }
+    .upload-box a {
+        font-size: 0.9em;
+    }
+
+    /* Tables and Charts within content should already be scrollable due to overflow-x: auto on parent */
+    /* Adjust font sizes if necessary for readability */
+    .page-title {
+        font-size: 1.5em;
+    }
+
+    /* Specific adjustment for Plotly titles in mobile to prevent overflow */
+    .js-plotly-plot .plotly .main-svg .infolayer .g-title {
+        white-space: normal !important; /* Allow title to wrap */
+        text-align: center;
+        font-size: 16px !important; /* Adjust font size if necessary */
+    }
+}
+
+/* --- Further Mobile Specific Adjustments (max-width: 480px) --- */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 10px;
+    }
+
+    .logo-title h4 {
+        font-size: 1em;
+    }
+
+    /* Adjust padding for submenu items for very small screens */
+    .submenu-item {
+        padding: 8px 10px 8px 40px !important; /* Reduce overall padding and left padding */
+        font-size: 0.85em;
+    }
+    .submenu-item .icon {
+        font-size: 1em;
+    }
+
+    .login-title {
+        font-size: 2em;
+    }
+
+    .login-form-box {
+        padding: 25px;
+    }
+
+    .login-input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .page-content-wrapper {
+        padding: 10px;
+    }
+
+    .upload-box {
+        padding: 20px 10px;
+        font-size: 0.9em;
+    }
+}
