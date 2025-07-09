@@ -1589,9 +1589,9 @@ def download_predictions(n_clicks, stored_data):
 
 # Mistake made when pushing
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
-server = app.server  # For Render
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(debug=True)
+
+# server = app.server  # For Render
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=8080)
